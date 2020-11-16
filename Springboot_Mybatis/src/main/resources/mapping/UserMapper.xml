@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap type="User" id="SysUserResult">
+        <id     property="userId"         column="user_id"        />
+        <result property="userName"       column="user_name"      />
+        <result property="userDepartment"         column="user_department_id"        />
+        <result property="userState"       column="user_state"      />
+        <result property="userCreateTime"       column="create_time"      />
+        <result property="userDepartmentName"         column="department_name"        />
+
+    </resultMap>
+
+
+
+
+
+    <select id="selectUserById" parameterType="Long" resultMap="SysUserResult">
+        select sys_user.user_id, sys_user.user_name, sys_user.user_department_id, department.department_name, sys_user.user_state, sys_user.create_time
+		from sys_user, department
+		where user_id = #{userId} and sys_user.user_department_id = department.department_id
+    </select>
+
+
+    <update id="updateUser" parameterType="User">
+        update sys_user
+        <set>
+            user_name = #{userName},
+            user_department_id = #{userDepartment},
+            user_state = #{userState},
+        </set>
+        where user_id = #{userId}
+    </update>
+
+
+
+    <insert id="insertUser" parameterType="User">
+
+		insert into sys_user( user_id, user_name, user_department_id, user_state, create_time)
+		values
+		( #{userId}, #{userName}, #{userDepartment}, #{userState}, NOW() );
+	</insert>
+
+
+
+
+    <delete id="deleteUserById" parameterType="Long">
+	    delete from sys_user where user_id = #{userId}
+	</delete>
+
+</mapper>
