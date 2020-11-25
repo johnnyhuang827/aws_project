@@ -8,7 +8,11 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 @Data
 @NoArgsConstructor                 //无参构造
@@ -22,8 +26,9 @@ public class StudentVo {
 
     private String studentName;
 
-    private Date studentBirthday;
+    private String studentBirthday;
 
     private String studentDepartment;
+
 
 }

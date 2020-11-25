@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,9 +34,7 @@ public class StudentVoController {
         List<Student> studentList = studentService.queryAll();
         List<StudentVo> studentVoList = new LinkedList<>();
         for(Student s : studentList){
-            String departmentName = departmentService.queryById(s.getStudentDepartmentId()).getDepartmentName();
-            StudentVo studentVo = new StudentVo(s.getStudentId(), s.getStudentName(),s.getStudentBirthday(), departmentName);
-            studentVoList.add(studentVo);
+            studentVoList.add(getVo(s));
         }
         return studentVoList;
     }
@@ -41,8 +42,15 @@ public class StudentVoController {
     @GetMapping("/{id}")
     public StudentVo getInfo(@PathVariable Long id){
         Student s = studentService.selectStudentById(id);
+        return getVo(s);
+
+    }
+
+    public StudentVo getVo(Student s){
         String departmentName = departmentService.queryById(s.getStudentDepartmentId()).getDepartmentName();
-        return new StudentVo(s.getStudentId(), s.getStudentName(),s.getStudentBirthday(), departmentName);
+        Date date = s.getStudentBirthday();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return new StudentVo(s.getStudentId(), s.getStudentName(), format.format(date), departmentName);
     }
 
 }
