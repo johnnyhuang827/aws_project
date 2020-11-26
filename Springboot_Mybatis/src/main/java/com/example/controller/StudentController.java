@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.ajax.AjaxResult;
 import com.example.entity.Student;
 import com.example.service.StudentService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,11 @@ public class StudentController {
         @RequestMapping("/queryAll")
         public List<Student> queryAll(){
                 return studentService.queryAll();
+        }
+
+        @RequestMapping("queryByPage/{page}")
+        public PageInfo<Student> queryByPage(@PathVariable int page){
+                return studentService.queryByPage(page, 4);
         }
 
         /**
