@@ -104,13 +104,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public PageInfo<Student> queryByPage(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        PageInfo<Student> page = new PageInfo<Student>(studentMapper.selectAll());
-
-        System.out.println("总数量：" + page.getTotal());
-        System.out.println("当前页查询记录：" + page.getList().size());
-        System.out.println("当前页码：" + page.getPageNum());
-        System.out.println("每页显示数量：" + page.getPageSize());
-        System.out.println("总页：" + page.getPages());
-        return page;
+        return new PageInfo<Student>(studentMapper.selectAll());
     }
 }
