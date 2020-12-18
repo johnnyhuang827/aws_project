@@ -21,4 +21,9 @@ public interface StudentService {
     List<Student> queryAll();
 
     PageInfo<Student> queryByPage(int pageNum, int pageSize);
+
+    List<Student> queryByDescOrder();
+
+    List<Student> queryByOrder();
+
 }
