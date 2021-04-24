@@ -3,6 +3,7 @@ package com.example.service;
 
 import com.example.entity.Product;
 import com.example.entity.Country;
+import com.example.entity.ProductCountry;
 
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 public interface ProductCountryService {
 
 
-    int insertByCountry(Long productId, Long countryId);
+    int insertByCountry(List<ProductCountry> list) throws Exception;
 
-    int deleteByCountry(Long productId, Long countryId);
+    int deleteByCountry(List<ProductCountry> list);
 
-    int updateByCountry(Long productId, Long countryId);
+    int updateByCountry(List<ProductCountry> list);
 }

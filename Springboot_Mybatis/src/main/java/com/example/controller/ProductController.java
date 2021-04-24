@@ -3,6 +3,8 @@ package com.example.controller;
 
 import com.example.ajax.AjaxResult;
 import com.example.entity.Product;
+import com.example.entity.ProductCountry;
+import com.example.service.ProductCountryService;
 import com.example.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductCountryService productCountryService;
 
     protected AjaxResult toAjax(int rows)
     {
@@ -77,6 +82,17 @@ public class ProductController {
     public List<Product> queryLessThanNum(@PathVariable Long num)
     {
         return productService.queryLessThanNum(num);
+    }
+
+    @PostMapping("/addProductCountry")
+    public AjaxResult addProductCountry(@Validated @RequestBody List<ProductCountry> list) throws Exception {
+        return toAjax(productCountryService.insertByCountry(list));
+    }
+
+    @DeleteMapping("/deleteProductCountry")
+    public AjaxResult deleteProductCountry(@Validated @RequestBody List<ProductCountry> list)
+    {
+        return toAjax(productCountryService.deleteByCountry(list));
     }
 }
 
